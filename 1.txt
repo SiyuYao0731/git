@@ -1,0 +1,54 @@
+                    switch (args[k].extargs_type) {
+                        case ST_EXTARGS_TYPE::int_with_default:				//仅用于无参初始化
+                        case ST_EXTARGS_TYPE::int_with_error:
+                        case ST_EXTARGS_TYPE::int_with_set_default:
+                        case ST_EXTARGS_TYPE::int_with_set_error:
+                            cout << "int";
+                            break;
+                        case ST_EXTARGS_TYPE::str:				//仅用于无参初始化
+                        case ST_EXTARGS_TYPE::str_with_set_default:
+                        case ST_EXTARGS_TYPE::str_with_set_error:
+                            cout << "string";
+                            break;
+                        default:
+                            cout << "IP地址";
+                            break;
+                    }
+                    cout << "，可取范围[";
+                    int m;
+                    switch (args[k].extargs_type) {
+                        case ST_EXTARGS_TYPE::int_with_default:					//仅用于无参初始化
+                        case ST_EXTARGS_TYPE::int_with_error:
+                            cout << args[k].extargs_int_min << ".." << args[k].extargs_int_max;
+                            break;
+                        case ST_EXTARGS_TYPE::int_with_set_default:
+                        case ST_EXTARGS_TYPE::int_with_set_error:
+                            for (m = 0; args[k].extargs_int_set[m + 1] != INVALID_INT_VALUE_OF_SET; m++)
+                                cout << args[k].extargs_int_set[m] << "/";
+                            cout << args[k].extargs_int_set[m];
+                            break;
+                        case ST_EXTARGS_TYPE::str_with_set_default:
+                        case ST_EXTARGS_TYPE::str_with_set_error:
+                            for (m = 0; args[k].extargs_string_set[m + 1] != ""; m++)
+                                cout << args[k].extargs_string_set[m] << "/";
+                            cout << args[k].extargs_string_set[m];
+                            break;
+                        default:
+                            cout << "IP地址";
+                            break;
+                    }
+                    cout << "]";
+                    if (k != 3 && k != 5 && k != 9) {
+                        cout << "，缺省：";
+                        switch (args[k].extargs_type) {
+                            case ST_EXTARGS_TYPE::int_with_default:					//仅用于无参初始化
+                            case ST_EXTARGS_TYPE::int_with_set_default:
+                            case ST_EXTARGS_TYPE::str_with_set_default:
+                            case ST_EXTARGS_TYPE::ipaddr_with_default:
+                                cout << args[k].defult;
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                    cout << ")" << endl;//整句提示
